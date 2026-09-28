@@ -1,122 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Winkle Way</title>
-<style>
-  :root {
-    --cream:#f8f4ed; --sand:#e4dfd2; --rockweed:#c6c2a5; --ink:#584c34;
-  }
-  html,body{
-    height:100%; margin:0; background:linear-gradient(to bottom,var(--cream),var(--sand) 60%,var(--rockweed));
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:#222;
-  }
-  .hero-wrap{
-    position:relative; max-width:1200px; margin:6vh auto; border-radius:16px; overflow:hidden;
-    box-shadow:0 12px 36px rgba(0,0,0,.22); aspect-ratio:16/9; background:#000;
-  }
-  .hero-wrap iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-  .shoreline{
-    position:fixed; left:0; right:0; bottom:0; height:38vh; pointer-events:none; opacity:.08;
-    background:url('data:image/svg+xml;utf8,\
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400">\
-        <path d="M0,300 C200,250 400,350 600,300 C800,250 1000,350 1200,300 L1200,400 L0,400 Z" fill="none" stroke="%23584c34" stroke-width="2"/>\
-        <path d="M50,330 q80,-25 160,0 t160,0 t160,0 t160,0 t160,0" fill="none" stroke="%23584c34" stroke-width="1"/>\
-      </svg>') center bottom/cover no-repeat;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Winkle Way</title>
+  <meta name="description" content="The Winkle Way — periwinkle racing from the Maine coast. Small shells, big winners." />
 
-  /* Unmute button */
-  .unmute-btn{
-    position:absolute; right:12px; bottom:12px; z-index:5;
-    border:0; border-radius:999px; padding:.65rem .9rem; font-weight:600;
-    background:rgba(248,244,237,.9); color:#222; box-shadow:0 4px 16px rgba(0,0,0,.25);
-    display:flex; align-items:center; gap:.5rem; cursor:pointer;
-    backdrop-filter:saturate(140%) blur(2px);
-  }
-  .unmute-btn:hover{ transform:translateY(-1px); }
-  .unmute-btn:active{ transform:translateY(0); }
-  .unmute-icon{
-    width:18px; height:18px; display:inline-block;
-    background:url('data:image/svg+xml;utf8,\
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
-        <path fill="%23222" d="M5 10v4h3l4 3V7l-4 3H5zm10.54 1a4.5 4.5 0 0 1-2.2 3.9l.84 1.46A6 6 0 0 0 18.54 11a6 6 0 0 0-4.36-5.36l-.84 1.46A4.5 4.5 0 0 1 15.54 11z"/>\
-      </svg>') center/contain no-repeat;
-  }
-  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-</style>
+  <!-- Link previews (text messages, social) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Winkle Way" />
+  <meta property="og:description" content="Periwinkle racing from the Maine coast. Small shells, big winners." />
+  <meta property="og:image" content="https://i.ytimg.com/vi/ooVDvDKgDjA/hqdefault.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon: a simple spiral shell, inline so no extra file is needed -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f8f4ed'/%3E%3Cpath d='M32 32c0-6 5-10 10-8 6 2 8 10 4 16-5 8-17 9-24 3-9-8-8-23 2-30 12-8 29-3 33 11' fill='none' stroke='%23333' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --cream: #f8f4ed;
+      --cream-soft: rgba(248,244,237,0.92);
+      --ink: #333;
+      --ink-soft: #444;
+      --pencil: #bcb5a7;            /* shoreline stroke */
+      --card-radius: 20px;
+      --frame-radius: 12px;
+      --page-pad: 24px;             /* left/right breathing room */
+      --shadow: 0 12px 36px rgba(0,0,0,0.15);
+      --serif: Georgia, Garamond, "Times New Roman", serif;
+    }
+    @media (max-width: 600px){
+      :root{ --page-pad: 16px; --card-radius: 16px; --frame-radius: 10px; }
+    }
+
+    /* Page base */
+    body{
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(to bottom, #f9f6ef, #e8e3d7);
+      min-height: 100vh;
+    }
+
+    /* Layout wrapper keeps content above the footer SVG */
+    .page{
+      position: relative;
+      z-index: 1;
+      padding-inline: var(--page-pad);
+    }
+
+    /* Wordmark */
+    .masthead{
+      text-align: center;
+      padding: 7vh 1rem 0;
+      font-family: var(--serif);
+    }
+    .masthead h1{
+      margin: 0;
+      font-weight: normal;
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      letter-spacing: 0.04em;
+    }
+    .masthead p{
+      margin: .5rem 0 0;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      letter-spacing: 0.2px;
+    }
+
+    /* Reusable video card */
+    .video-card{
+      width: 100%;
+      max-width: 1600px;
+      margin: 6vh auto;
+      padding: 12px;                        /* soft border around frame */
+      box-sizing: border-box;
+      background: var(--cream-soft);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+    }
+    .video-card + .video-card{ margin-top: 8vh; }
+
+    .video-frame{
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: var(--frame-radius);
+      background: #000;                     /* prevents white flash while loading */
+    }
+    .video-frame iframe,
+    .video-frame img{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .video-frame img{ object-fit: cover; display: block; }
+
+    /* Lite embed: poster + play button until clicked, then the real player loads */
+    .play{
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      margin: 0; padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .play::after{
+      content: "";
+      width: 74px; height: 74px;
+      border-radius: 50%;
+      background: var(--cream-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23333'/%3E%3C/svg%3E") center/38px no-repeat;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      transition: transform .2s ease;
+    }
+    .play:hover::after, .play:focus-visible::after{ transform: scale(1.06); }
+    .play:focus-visible{ outline: 3px solid var(--cream); outline-offset: -6px; }
+    @media (prefers-reduced-motion: reduce){ .play::after{ transition: none; } }
+
+    /* Optional caption under a video; delete the <figcaption> if not wanted */
+    .video-card figcaption{
+      text-align: center;
+      font-family: var(--serif);
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      padding: 10px 8px 2px;
+    }
+    .video-card figure{ margin: 0; }
+
+    /* Tagline footer */
+    .footer-tagline{
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: var(--ink-soft);
+      font-family: var(--serif);
+      font-size: 0.98rem;
+      letter-spacing: 0.2px;
+      line-height: 1.45;
+      padding: 7vh 2rem 14vh;     /* extra bottom space for the watermark */
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+
+    /* Fixed shoreline watermark using the detailed external SVG */
+    .footer-bg{
+      position: fixed;
+      left: 0; bottom: 0;
+      width: 100%;
+      height: 42vh;                        /* visible band near the footer */
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;                         /* tweak 0.35–0.6 to taste */
+      background-image: url('shoreline-detailed.svg');
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-size: 1600px auto;         /* desktop scale */
+    }
+    @media (min-width: 1536px){ .footer-bg{ opacity: 0.44; background-size: 1800px auto; } }
+    @media (max-width: 480px){ .footer-bg{ opacity: 0.58; background-size: 1200px auto; } }
+
+    .sr-only{
+      position: absolute !important;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0; border: 0;
+      clip: rect(0 0 0 0); clip-path: inset(50%);
+      overflow: hidden; white-space: nowrap;
+    }
+  </style>
 </head>
 <body>
-  <!-- Optional tiny title -->
-  <!-- <div class="site-title" style="text-align:center;letter-spacing:.06em;font-weight:600;margin:2.5vh 0 0;opacity:.75;">The Winkle Way</div> -->
 
-  <div class="hero-wrap">
-    <!-- IMPORTANT: set ORIGIN below to your exact site origin (no trailing slash) -->
-    <iframe id="hero-iframe"
-      src="https://www.youtube-nocookie.com/embed/ooVDvDKgDjA?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=https://thewinkleway.com"
-      title="The Winkle Way Hero Video"
-      allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="origin-when-cross-origin"
-      allowfullscreen
-      loading="eager">
-    </iframe>
+  <main class="page" id="top">
 
-    <button class="unmute-btn" id="unmuteBtn" type="button" aria-pressed="false">
-      <span class="unmute-icon" aria-hidden="true"></span>
-      Unmute
-      <span class="sr-only"> video</span>
-    </button>
-  </div>
+    <header class="masthead">
+      <h1>The Winkle Way</h1>
+      <p>Periwinkle racing from the Maine coast</p>
+    </header>
 
-  <div class="shoreline"></div>
+    <!-- HERO VIDEO -->
+    <section class="video-card hero-video" id="video-1" aria-label="Hero video">
+      <figure>
+        <div class="video-frame" data-video-id="ooVDvDKgDjA" data-title="The Winkle Way — Hero Video">
+          <img src="https://i.ytimg.com/vi/ooVDvDKgDjA/maxresdefault.jpg"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/ooVDvDKgDjA/hqdefault.jpg'"
+               alt="" width="1280" height="720" fetchpriority="high" />
+          <button class="play" type="button" aria-label="Play: The Winkle Way — Hero Video"></button>
+        </div>
+        <!-- <figcaption>Race name · Date</figcaption> -->
+      </figure>
+    </section>
+
+    <!-- SECOND VIDEO -->
+    <section class="video-card" id="video-2" aria-label="Second video">
+      <figure>
+        <div class="video-frame" data-video-id="0J4DHbtRFts" data-title="The Winkle Way — Second Video">
+          <img src="https://i.ytimg.com/vi/0J4DHbtRFts/maxresdefault.jpg"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0J4DHbtRFts/hqdefault.jpg'"
+               alt="" width="1280" height="720" loading="lazy" />
+          <button class="play" type="button" aria-label="Play: The Winkle Way — Second Video"></button>
+        </div>
+        <!-- <figcaption>Race name · Date</figcaption> -->
+      </figure>
+    </section>
+
+  </main>
+
+  <footer class="footer-tagline">
+    <p>Small shells, big winners — The Winkle Way.</p>
+  </footer>
+  <div class="footer-bg" aria-hidden="true"></div>
 
   <script>
-    (function(){
-      const iframe = document.getElementById('hero-iframe');
-      const btn = document.getElementById('unmuteBtn');
-      const videoId = "ooVDvDKgDjA";
-      const base = "https://www.youtube-nocookie.com/embed/" + videoId;
-      const common = "playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=https%3A%2F%2Fthewinkleway.com";
-
-      function postCommand(func, args=[]){
-        try {
-          iframe.contentWindow.postMessage(JSON.stringify({event:"command", func, args}), "*");
-        } catch(e) {
-          /* ignore – we'll fallback if needed */
-        }
-      }
-
-      btn.addEventListener('click', () => {
-        // Preferred: unmute via postMessage (no external API file required)
-        postCommand("unMute");
-        postCommand("setVolume", [80]);
-        postCommand("playVideo");
-
-        // Visual state
-        btn.setAttribute('aria-pressed','true');
-        btn.textContent = "Sound on";
-
-        // Fallback: if unmute didn’t take (e.g., blocked), reload with sound.
-        // Give it a short moment; if still muted, reload src with mute=0.
-        setTimeout(() => {
-          // We can't read player state without the full API, so we just force a sound-on reload.
-          // Users expect this on first tap anyway.
-          const withSound = `${base}?autoplay=1&mute=0&${common}`;
-          // Only switch if we're still on a muted URL
-          if (iframe.src.includes("mute=1")) {
-            iframe.src = withSound;
-          }
-        }, 250);
+    // Swap the poster for the real YouTube player only when someone presses play.
+    document.querySelectorAll('.video-frame').forEach(function (frame) {
+      var btn = frame.querySelector('.play');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var id = frame.dataset.videoId;
+        var iframe = document.createElement('iframe');
+        iframe.title = frame.dataset.title || 'Video';
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id +
+          '?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share';
+        iframe.referrerPolicy = 'origin-when-cross-origin';
+        iframe.setAttribute('allowfullscreen', '');
+        frame.replaceChildren(iframe);
+        iframe.focus();
       });
-
-      // Keyboard access: space/enter to toggle
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    })();
+    });
   </script>
+
 </body>
 </html>
