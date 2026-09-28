@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 600" width="1920" height="600">
+  <defs>
+    <style>
+      .shore { fill: none; stroke: #bcb5a7; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+    <!-- Noise-like hatch pattern for subtle texture -->
+    <filter id="paperNoise" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" result="mono"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0 0 0 0 0.025 0.05 0.08 0.1"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+
+  <!-- Very faint texture -->
+  <rect x="0" y="0" width="1920" height="600" fill="transparent" filter="url(#paperNoise)" opacity="0.15"/>
+
+  <!-- Distant coastline silhouette (faint) -->
+  <g opacity="0.18">
+    <path class="shore" stroke-width="1"
+          d="M0,210 C180,190 360,200 520,210 C700,220 860,235 1040,210 C1210,188 1480,200 1680,190 C1800,184 1860,184 1920,182"/>
+    <path class="shore" stroke-width="0.9"
+          d="M0,230 C220,210 420,220 620,228 C820,236 1120,220 1420,208 C1640,200 1780,202 1920,198"/>
+  </g>
+
+  <!-- Main coastline sweeps -->
+  <g opacity="0.36">
+    <path class="shore" stroke-width="1.7"
+          d="M0,430 C220,380 420,455 640,400 C900,348 1180,440 1440,380 C1640,340 1780,360 1920,340"/>
+    <path class="shore" stroke-width="1.3" opacity="0.30"
+          d="M0,408 C260,360 520,430 820,372 C1100,324 1460,410 1920,356"/>
+    <path class="shore" stroke-width="1.1" opacity="0.26"
+          d="M0,468 C260,442 560,488 860,456 C1160,426 1520,470 1920,438"/>
+  </g>
+
+  <!-- Rock clusters with inner contours -->
+  <g opacity="0.40">
+    <path class="shore" stroke-width="1.4"
+          d="M235,452 c24,-12 48,-12 64,3 c15,13 11,27 -9,34 c-26,9 -50,4 -63,-13 c-6,-9 -5,-16 8,-24z"/>
+    <path class="shore" stroke-width="0.9" opacity="0.55"
+          d="M248,466 c10,-6 22,-6 29,2 c7,8 3,16 -10,20 c-14,5 -26,0 -31,-9"/>
+    <path class="shore" stroke-width="1.25"
+          d="M980,438 c30,-16 68,-14 90,5 c18,15 10,32 -24,38 c-38,6 -66,-3 -80,-22 c-5,-8 -3,-14 14,-21z"/>
+    <path class="shore" stroke-width="0.9" opacity="0.55"
+          d="M1000,456 c14,-10 36,-10 46,0 c9,9 5,18 -12,24 c-18,6 -34,2 -42,-8"/>
+    <path class="shore" stroke-width="1.2"
+          d="M1326,458 c20,-12 40,-12 54,0 c11,8 7,18 -14,26 c-20,6 -38,2 -48,-8z"/>
+    <path class="shore" stroke-width="1.2"
+          d="M1566,432 c26,-12 52,-10 68,7 c11,12 6,22 -14,28 c-24,8 -48,4 -60,-9 c-7,-7 -5,-16 6,-26z"/>
+  </g>
+
+  <!-- Tide pools & seaweed filaments -->
+  <g opacity="0.28">
+    <path class="shore" stroke-width="0.9"
+          d="M520,494 q14,-20 34,-18 q12,2 18,10 q6,10 0,20 q-8,14 -28,12 q-20,-2 -24,-24z"/>
+    <path class="shore" stroke-width="0.85"
+          d="M562,492 q8,-14 24,-12 q10,2 14,10 q4,8 -2,16 q-8,12 -24,10 q-14,-2 -12,-24z"/>
+    <path class="shore" stroke-width="0.9"
+          d="M760,484 c18,-22 42,-24 60,-6 c11,11 9,24 -4,33 c-20,13 -46,11 -60,-5 c-6,-7 -4,-14 4,-22z"/>
+    <path class="shore" stroke-width="0.85"
+          d="M1184,492 c16,-20 38,-20 52,-2 c9,11 7,22 -7,28 c-18,9 -36,7 -47,-7 c-4,-6 -2,-12 2,-19z"/>
+    <path class="shore" stroke-width="0.85"
+          d="M1684,478 c16,-18 36,-18 50,-2 c9,10 7,20 -7,26 c-16,8 -34,6 -45,-6 c-4,-4 -2,-10 2,-18z"/>
+    <!-- Extra weed strands -->
+    <path class="shore" stroke-width="0.7" opacity="0.6"
+          d="M720,506 q6,-16 18,-16 q8,0 12,6 q4,8 -2,14 q-8,10 -22,8"/>
+    <path class="shore" stroke-width="0.7" opacity="0.6"
+          d="M1228,512 q8,-16 20,-16 q8,0 12,6 q4,8 -2,14 q-8,10 -22,8"/>
+  </g>
+
+  <!-- Fine shoreline contour lines -->
+  <g opacity="0.20">
+    <path class="shore" stroke-width="0.85"
+          d="M120,540 c210,-34 420,-30 640,-22 c280,12 540,18 1060,0"/>
+    <path class="shore" stroke-width="0.75"
+          d="M140,524 c190,-30 420,-26 660,-16 c260,10 520,20 980,2"/>
+    <path class="shore" stroke-width="0.65"
+          d="M200,556 c180,-24 420,-22 720,-12 c260,8 520,14 1000,-2"/>
+  </g>
+</svg>
